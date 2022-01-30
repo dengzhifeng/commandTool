@@ -3,6 +3,7 @@
 	"displayName": "commandTool",
 	"description": "run command for project",
 	"version": "0.0.1",
+	"icon": "resources/extIcon.png",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -19,7 +20,24 @@
 				"command": "commandtool.helloWorld",
 				"title": "Hello World"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "command-list-view",
+					"title": "command-list",
+					"icon": "resources/extIcon.png"
+				}
+			]
+		},
+		"views": {
+			"command-list-view": [
+			  	{
+					"id": "Command",
+					"name": "01.命令集"
+			  	}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",
@@ -30,7 +48,8 @@
 		"watch-tests": "tsc -p . -w --outDir out",
 		"pretest": "npm run compile-tests && npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"push": "command-cli push"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.63.0",

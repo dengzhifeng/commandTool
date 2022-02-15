@@ -3,11 +3,12 @@
  * @author: steven.deng
  * @Date: 2022-02-09 07:24:02
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-09 07:49:05
+ * @LastEditTime: 2022-02-13 10:01:16
  */
 
 import { getPathHack } from ".";
 import * as fs from 'fs';
+import { ShellType } from "../type/common";
 
 /**
  * @description 文件是否可读
@@ -41,9 +42,43 @@ async function hasFile(projectPath: string) {
 /**
  * @description 读取 package.json 内容
  */
- function readFile(filePath: string) {
+function readFile(filePath: string) {
     const realPath = getPathHack(filePath);
     return JSON.parse(fs.readFileSync(realPath, 'utf-8'));
-  }
+}
 
-export { hasFile, readFile };
+interface KeyType {
+    [key: string]: string
+}
+/**
+ * @description 得到 shellKey 的脚本命令
+ * @param {ShellType} scripts package.json 中的 scripts 数据
+ * @param {string} shellKey scripts 中的 key
+ */
+
+function getShell(scripts: KeyType): ShellType[] {
+    // 判空
+    if (!scripts || Object.keys(scripts).length === 0) {
+        return [];
+    }
+    let shellList: ShellType[] = [];
+    // 遍历脚本 scriptName是脚本名字 
+    Object.keys(scripts).map((scriptName: string) => {
+        shellList.push({
+            key: scriptName,
+            value: scripts[`${scriptName}`],
+        });
+    });
+    return shellList;
+}
+
+// /**
+//  * @description 匹配脚本环境
+//  * @param shellEnv 脚本环境
+//  */
+// function getShellEnv(shellEnv: string): string {
+//     let canBreak = false;
+//     let environment: string = 
+// }
+
+export { hasFile, readFile, getShell };

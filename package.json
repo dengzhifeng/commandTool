@@ -11,14 +11,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:commandtool.helloWorld"
+		"onCommand:commandtool.helloWorld",
+		"onView:SideBar-Command"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "commandtool.helloWorld",
-				"title": "Hello World"
+				"title": "Hello World xx"
 			}
 		],
 		"viewsContainers": {
@@ -32,12 +33,18 @@
 		},
 		"views": {
 			"command-list-view": [
-			  	{
-					"id": "Command",
-					"name": "01.命令集"
-			  	}
+				{
+					"id": "SideBar-Command",
+					"name": "03.命令集"
+				}
 			]
-		}
+		},
+		"viewsWelcome": [
+			{
+				"view": "SideBar-Command",
+				"contents": "提高你的效率，释放你的双手～"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",

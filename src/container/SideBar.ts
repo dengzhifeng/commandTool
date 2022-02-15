@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 18:07:56
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-09 07:14:45
+ * @LastEditTime: 2022-02-15 08:19:56
  */
 import * as vscode from 'vscode';
 
@@ -12,9 +12,9 @@ class SideBarEntryItem extends vscode.TreeItem {
     constructor(
         public readonly label: string, // 标签
         public readonly collapsibleState: vscode.TreeItemCollapsibleState, // 可折叠状态
-        public readonly description?: string,
-        public readonly projectName?: string,
         public readonly path?: string,
+        public readonly projectName?: string,
+        public readonly description?: string,
     ) {
         super(label, collapsibleState);
         this.path = `${this.path}`;

@@ -10,9 +10,9 @@ import * as vscode from 'vscode';
 import container from './container';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "commandtool" is now active!');
+	console.log('Congratulations, your extension "commandTool" is now active!');
 
-	let disposable = vscode.commands.registerCommand('commandtool.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('commandTool.helloWorld', () => {
 		// vscode.window.showInformationMessage('Hello World from commandTool xxxxddd!');
 		vscode.window.showInformationMessage('Hello World from commandTool  xxxxxx!' );
 	});

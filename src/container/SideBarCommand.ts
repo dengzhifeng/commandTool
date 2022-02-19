@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:38:46
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-15 08:22:14
+ * @LastEditTime: 2022-02-17 07:36:51
  */
 import * as vscode from 'vscode';
 import { PREFIX } from '../constants';
@@ -22,7 +22,6 @@ export default class SideBarCommand extends SideBarEntryListImplements {
     // 获取子树方式
     async getChildren(element?: SideBarEntryItem): Promise<SideBarEntryItem[] | null | undefined> {
         if (element) {
-            debugger;
             let childElement:any = [];
             const packJsonPath = `${element.path}/package.json`;
             const hasPackageJson = await hasFile(packJsonPath);
@@ -32,7 +31,7 @@ export default class SideBarCommand extends SideBarEntryListImplements {
                 // 有script
                 if (packageValue?.scripts) {
                     // 得到用户自定义配置的脚本命令规则
-                    // const scriptsRule: string = vscode.workspace.getConfiguration().get('vscode-commandtool-extension.scriptsRule') || '';
+                    // const scriptsRule: string = vscode.workspace.getConfiguration().get('vscode-commandTool-extension.scriptsRule') || '';
                     // const scriptNames = scriptsRule.split('、');
                     let shellList: ShellType[] = [];
                     shellList = getShell(packageValue.scripts);
@@ -41,7 +40,8 @@ export default class SideBarCommand extends SideBarEntryListImplements {
                             const node = getNode(shell.key, {
                                 shell,
                                 path: element.path,
-                                projectName: element.projectName
+                                projectName: element.projectName,
+                                description: shell.value
                             });
                             childElement[index] = node;
                         });
@@ -59,13 +59,17 @@ export default class SideBarCommand extends SideBarEntryListImplements {
             }
             return childElement;
         } else {
+            const itemCollapsibleState: boolean = vscode.workspace.getConfiguration().get('commandTool.TreeItemCollapsibleState') || false;
+            // 根命令目录是否折叠
+            const treeItemCollapsibleState: number = itemCollapsibleState ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.Expanded;
+            
             const folderNode = this.folderPathList?.map((folder: FolderType) => {
                 return new SideBarEntryItem(
                     folder.name, 
-                    vscode.TreeItemCollapsibleState.Collapsed,
-                    '',
+                    treeItemCollapsibleState,
+                    folder.path,
                     folder.name,
-                    folder.path
+                    '',
                 );
             }) || [];
             return folderNode;
@@ -78,8 +82,9 @@ function getNode(title: string, args?:{[key: string]: any}) {
     let node = new SideBarEntryItem(
         title,
         vscode.TreeItemCollapsibleState.None, // 不折叠
-        // args?.path, // Todo
-        // args?.projectName,
+        args?.path, // Todo
+        args?.projectName,
+        args?.description,
     );
     node.command = {
         title,

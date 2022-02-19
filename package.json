@@ -1,5 +1,5 @@
 {
-	"name": "commandtool",
+	"name": "commandTool",
 	"displayName": "commandTool",
 	"description": "run command for project",
 	"version": "0.0.1",
@@ -11,17 +11,49 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:commandtool.helloWorld",
+		"onCommand:commandTool.helloWorld",
 		"onView:SideBar-Command"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "commandtool.helloWorld",
-				"title": "Hello World xx"
+				"command": "commandTool.helloWorld",
+				"title": "Hello World",
+				"icon": {
+					"light": "resource/light/play_circle_filled-15px.svg",
+					"dark": "resource/dark/play_circle_filled-15px.svg"
+				}
+			},
+			{
+				"command": "commandTool.helloWorld",
+				"title": "He",
+				"icon": {
+					"light": "resources/light/play_circle_filled-15px.svg",
+					"dark": "resources/dark/play_circle_filled-15px.svg"
+				}
 			}
 		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "commandTool.helloWorld",
+					"when": "view == SideBar-Command",
+					"group": "navigation"
+				},
+				{
+					"command": "commandTool.helloWorld",
+					"when": "view == SideBar-Command"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "commandTool.helloWorld",
+					"when": "view == SideBar-Command",
+					"group": "inline"
+				}
+			]
+		},
 		"viewsContainers": {
 			"activitybar": [
 				{
@@ -35,7 +67,7 @@
 			"command-list-view": [
 				{
 					"id": "SideBar-Command",
-					"name": "03.命令集"
+					"name": "命令集"
 				}
 			]
 		},
@@ -44,7 +76,30 @@
 				"view": "SideBar-Command",
 				"contents": "提高你的效率，释放你的双手～"
 			}
-		]
+		],
+		"configuration": {
+			"title": "commandTool",
+			"properties": {
+				"commandTool.splitTerminal": {
+					"type": "boolean",
+					"description": "是否支持分割终端，默认支持",
+					"default": true,
+					"scope": "window"
+				},
+				"commandTool.autoRunTerminal": {
+					"type": "boolean",
+					"description": "是否自动运行脚本，默认自动运行",
+					"default": true,
+					"scope": "window"
+				},
+				"commandTool.TreeItemCollapsibleState": {
+					"type": "boolean",
+					"description": "是否折叠命令列表",
+					"default": false,
+					"scope": "window"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",

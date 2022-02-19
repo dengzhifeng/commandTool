@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:38:29
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-14 22:08:46
+ * @LastEditTime: 2022-02-17 07:27:20
  */
 import * as vscode from 'vscode';
 import { PREFIX } from '../constants';
@@ -20,14 +20,11 @@ let terminals: StatusBarTerminal[] = [];
 let terminalCount = 0;
 // 当前终端索引
 let terminalIndex: number;
-console.log('index.ts');
 export default function(context: vscode.ExtensionContext) {
-    console.log('init ggg');
     init(context);
 };
 
 function init(context: vscode.ExtensionContext) {
-    console.log('init');
     // 得到vscode工作区的工程项目
     const folderList = getWorkSpaceFolders();
     console.log('folderlist', folderList);
@@ -38,7 +35,7 @@ function init(context: vscode.ExtensionContext) {
     // 注册树形文件树
     vscode.window.registerTreeDataProvider('SideBar-Command', sideBar);
     
-    // 注册命令 展开目录
+    // 注册命令 点击每行
     vscode.commands.registerCommand(
         'SideBar-Command.openChild',
         async (args: { title: string; shell: ShellType; [key: string]: any }) => {
@@ -50,9 +47,12 @@ function init(context: vscode.ExtensionContext) {
                 // 获取用户配置的低高中配置
                 // const matchConfig = vscode.workspace.getConfiguration().get('vscode-commandTool-extension.matchConfig');
                 // 获取用户配置是否分割终端设置
-                const splitTerminal = vscode.workspace.getConfiguration().get('vscode-commandTool-extension.splitTerminal') || false;
+                const splitTerminal = vscode.workspace.getConfiguration().get('commandTool.splitTerminal') || false;
+                console.log('vscode.workspace.getConfiguration().get(commandTool.splitTerminal)', vscode.workspace.getConfiguration().get('commandTool.splitTerminal'));
                 // 获取用户配置的是否自动运行脚本
-                const autoRunTerminal: boolean = vscode.workspace.getConfiguration().get('vscode-commandTool-extension.autoRunTerminal') || true;
+                const autoRunTerminal: boolean = vscode.workspace.getConfiguration().get('commandTool.autoRunTerminal') || false;
+                console.log('vscode.workspace.getConfiguration().get(commandTool.autoRunTerminal)', vscode.workspace.getConfiguration().get('commandTool.autoRunTerminal'));
+
                 // 填充脚本、支持分配、自动运行脚本、多项目终端切换
                 // 1.1 获取当前所以运行的终端数量
                 const uniqTerminals = uniqBy(terminals, 'terminalName');

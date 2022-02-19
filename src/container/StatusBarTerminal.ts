@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:39:04
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-13 22:26:18
+ * @LastEditTime: 2022-02-18 07:32:11
  */
 import * as vscode from 'vscode';
 import { MyTerminalOptions } from '../type/common';
@@ -33,7 +33,6 @@ export class StatusBarTerminal {
                 cwd: terminalOptions?.terminalCwd, // 当前工作目录
                 name: terminalOptions?.terminalName // 终端命名
             });
-             
             // 设置终端命令和启动
             if (terminalOptions?.terminalAutoInputText) {
                 if (terminalOptions?.terminalText) {

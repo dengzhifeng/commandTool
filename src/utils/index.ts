@@ -3,12 +3,13 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:52:13
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-14 22:36:49
+ * @LastEditTime: 2022-02-23 07:05:11
  */
 import * as vscode from 'vscode';
 import { FolderType } from '../type/common';
 import * as os from 'os';
 export * from './package';
+export * from './file';
 /**
  * @description 因为 vscode 支持 Multi-root 工作区，暴力解决
  * @summary 如果发现只有一个根文件夹，读取其子文件夹作为 workspaceFolders

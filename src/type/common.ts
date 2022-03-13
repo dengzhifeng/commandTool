@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:53:39
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-13 18:43:42
+ * @LastEditTime: 2022-02-23 07:00:09
  */
 import * as vscode from 'vscode';
 
@@ -27,4 +27,14 @@ export interface MyTerminalOptions extends vscode.TerminalOptions {
     terminalText?: string; // 终端填充内容
     terminalAutoInputText?: boolean; // 是否自动填充终端内容
     terminalAutoRun?: boolean; // 是否自动运行
+}
+
+export interface Entry {
+    uri: vscode.Uri;
+    type: vscode.FileType;
+}
+export interface Command {
+    label?:string;
+    script?:string;
+    time?:number;
 }

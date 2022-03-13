@@ -17,7 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Hello World from commandTool  xxxxxx!' );
 	});
 	context.subscriptions.push(disposable);
-	console.log('Congratulations end');
 	container(context);
 }
 

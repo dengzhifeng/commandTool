@@ -1,132 +1,304 @@
 {
-	"name": "commandTool",
-	"displayName": "commandTool",
-	"description": "run command for project",
-	"version": "0.0.1",
-	"icon": "resources/extIcon.png",
-	"engines": {
-		"vscode": "^1.63.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:commandTool.helloWorld",
-		"onView:SideBar-Command"
-	],
-	"main": "./dist/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "commandTool.helloWorld",
-				"title": "Hello World",
-				"icon": {
-					"light": "resource/light/play_circle_filled-15px.svg",
-					"dark": "resource/dark/play_circle_filled-15px.svg"
-				}
-			},
-			{
-				"command": "commandTool.helloWorld",
-				"title": "He",
-				"icon": {
-					"light": "resources/light/play_circle_filled-15px.svg",
-					"dark": "resources/dark/play_circle_filled-15px.svg"
-				}
-			}
-		],
-		"menus": {
-			"view/title": [
-				{
-					"command": "commandTool.helloWorld",
-					"when": "view == SideBar-Command",
-					"group": "navigation"
-				},
-				{
-					"command": "commandTool.helloWorld",
-					"when": "view == SideBar-Command"
-				}
-			],
-			"view/item/context": [
-				{
-					"command": "commandTool.helloWorld",
-					"when": "view == SideBar-Command",
-					"group": "inline"
-				}
-			]
-		},
-		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "command-list-view",
-					"title": "command-list",
-					"icon": "resources/extIcon.png"
-				}
-			]
-		},
-		"views": {
-			"command-list-view": [
-				{
-					"id": "SideBar-Command",
-					"name": "命令集"
-				}
-			]
-		},
-		"viewsWelcome": [
-			{
-				"view": "SideBar-Command",
-				"contents": "提高你的效率，释放你的双手～"
-			}
-		],
-		"configuration": {
-			"title": "commandTool",
-			"properties": {
-				"commandTool.splitTerminal": {
-					"type": "boolean",
-					"description": "是否支持分割终端，默认支持",
-					"default": true,
-					"scope": "window"
-				},
-				"commandTool.autoRunTerminal": {
-					"type": "boolean",
-					"description": "是否自动运行脚本，默认自动运行",
-					"default": true,
-					"scope": "window"
-				},
-				"commandTool.TreeItemCollapsibleState": {
-					"type": "boolean",
-					"description": "是否折叠命令列表",
-					"default": false,
-					"scope": "window"
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run package",
-		"compile": "webpack",
-		"watch": "webpack --watch",
-		"package": "webpack --mode production --devtool hidden-source-map",
-		"compile-tests": "tsc -p . --outDir out",
-		"watch-tests": "tsc -p . -w --outDir out",
-		"pretest": "npm run compile-tests && npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js",
-		"push": "command-cli push"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.63.0",
-		"@types/glob": "^7.2.0",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"@typescript-eslint/eslint-plugin": "^5.9.1",
-		"@typescript-eslint/parser": "^5.9.1",
-		"eslint": "^8.6.0",
-		"glob": "^7.2.0",
-		"mocha": "^9.1.3",
-		"typescript": "^4.5.4",
-		"ts-loader": "^9.2.6",
-		"webpack": "^5.66.0",
-		"webpack-cli": "^4.9.1",
-		"@vscode/test-electron": "^2.0.3"
-	}
+  "name": "commandTool",
+  "displayName": "commandTool",
+  "description": "run command for project",
+  "version": "0.0.1",
+  "publisher": "stevendeng",
+  "icon": "resources/extIcon.png",
+  "engines": {
+    "vscode": "^1.63.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:commandTool.helloWorld",
+    "onView:SideBar-Command"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "commandTool.helloWorld",
+        "title": "Hello World",
+        "icon": {
+          "light": "resource/light/play_circle_filled-15px.svg",
+          "dark": "resource/dark/play_circle_filled-15px.svg"
+        }
+      },
+      {
+        "command": "commandTool.helloWorld",
+        "title": "He",
+        "icon": {
+          "light": "resources/light/play_circle_filled-15px.svg",
+          "dark": "resources/dark/play_circle_filled-15px.svg"
+        }
+      },
+      {
+        "command": "WorkSpace-Command.openFile",
+        "title": "Open File"
+      },
+      {
+        "command": "Global-Command.openFile",
+        "title": "Open File"
+      },
+      {
+        "command": "WorkSpace-Command.add",
+        "title": "Add",
+        "icon": {
+          "light": "resources/light/playlist_add-24px.svg",
+          "dark": "resources/dark/playlist_add-24px.svg"
+        }
+      },
+      {
+        "command": "Global-Command.add",
+        "title": "Add",
+        "icon": {
+          "light": "resources/light/playlist_add-24px.svg",
+          "dark": "resources/dark/playlist_add-24px.svg"
+        }
+      },
+      {
+        "command": "WorkSpace-Command.addFolder",
+        "title": "AddFolder",
+        "icon": {
+          "light": "resources/light/create_new_folder-24px.svg",
+          "dark": "resources/dark/create_new_folder-24px.svg"
+        }
+      },
+      {
+        "command": "Global-Command.addFolder",
+        "title": "AddFolder",
+        "icon": {
+          "light": "resources/light/create_new_folder-24px.svg",
+          "dark": "resources/dark/create_new_folder-24px.svg"
+        }
+      },
+      {
+        "command": "WorkSpace-Command.sync",
+        "title": "Sync",
+        "icon": {
+          "light": "resources/light/sync-24px.svg",
+          "dark": "resources/dark/sync-24px.svg"
+        }
+      },
+      {
+        "command": "Global-Command.sync",
+        "title": "Sync",
+        "icon": {
+          "light": "resources/light/sync-24px.svg",
+          "dark": "resources/dark/sync-24px.svg"
+        }
+      },
+      {
+        "command": "WorkSpace-Command.edit",
+        "title": "EditCommand"
+      },
+      {
+        "command": "Global-Command.edit",
+        "title": "EditCommand"
+      },
+      {
+        "command": "WorkSpace-Command.editLabel",
+        "title": "EditLabel"
+      },
+      {
+        "command": "Global-Command.editLabel",
+        "title": "EditLabel"
+      },
+      {
+        "command": "WorkSpace-Command.delete",
+        "title": "Delete"
+      },
+      {
+        "command": "Global-Command.delete",
+        "title": "Delete"
+      },
+      {
+        "command": "workSpaceCommandExecuter.execute",
+        "title": "Execute",
+        "icon": {
+          "light": "resources/light/play_circle_filled-15px.svg",
+          "dark": "resources/dark/play_circle_filled-15px.svg"
+        }
+      },
+      {
+        "command": "globalCommandExecuter.execute",
+        "title": "Execute",
+        "icon": {
+          "light": "resources/light/play_circle_filled-15px.svg",
+          "dark": "resources/dark/play_circle_filled-15px.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "commandTool.helloWorld",
+          "when": "view == SideBar-Command"
+        },
+        {
+          "command": "WorkSpace-Command.add",
+          "when": "view == WorkSpace-Command",
+          "group": "navigation"
+        },
+        {
+          "command": "Global-Command.add",
+          "when": "view == Global-Command",
+          "group": "navigation"
+        },
+        {
+          "command": "Global-Command.sync",
+          "when": "view == Global-Command",
+          "group": "navigation"
+        },
+        {
+          "command": "WorkSpace-Command.sync",
+          "when": "view == WorkSpace-Command",
+          "group": "navigation"
+        },
+        {
+          "command": "WorkSpace-Command.addFolder",
+          "when": "view == WorkSpace-Command",
+          "group": "navigation"
+        },
+        {
+          "command": "Global-Command.addFolder",
+          "when": "view == Global-Command",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "commandTool.helloWorld",
+          "when": "view == SideBar-Command",
+          "group": "inline"
+        },
+        {
+          "command": "workSpaceCommandExecuter.execute",
+          "when": "view == WorkSpace-Command && viewItem == file",
+          "group": "inline"
+        },
+        {
+          "command": "globalCommandExecuter.execute",
+          "when": "view == Global-Command && viewItem == file",
+          "group": "inline"
+        },
+        {
+          "command": "WorkSpace-Command.delete",
+          "when": "view == WorkSpace-Command"
+        },
+        {
+          "command": "Global-Command.delete",
+          "when": "view == Global-Command"
+        },
+        {
+          "command": "WorkSpace-Command.edit",
+          "when": "view == WorkSpace-Command"
+        },
+        {
+          "command": "WorkSpace-Command.editLabel",
+          "when": "view == WorkSpace-Command && viewItem == file "
+        },
+        {
+          "command": "Global-Command.edit",
+          "when": "view == Global-Command"
+        },
+        {
+          "command": "Global-Command.editLabel",
+          "when": "view == Global-Command && viewItem == file"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "command-list-view",
+          "title": "command-tool",
+          "icon": "resources/extIcon.png"
+        }
+      ]
+    },
+    "views": {
+      "command-list-view": [
+        {
+          "id": "SideBar-Command",
+          "name": "项目命令集"
+        },
+        {
+          "id": "WorkSpace-Command",
+          "name": "自定义命令集"
+        },
+        {
+          "id": "Global-Command",
+          "name": "全局命令集"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "SideBar-Command",
+        "contents": "提高你的效率，释放你的双手～"
+      }
+    ],
+    "configuration": {
+      "title": "commandTool",
+      "properties": {
+        "commandTool.splitTerminal": {
+          "type": "boolean",
+          "description": "是否支持分割终端，默认支持",
+          "default": true,
+          "scope": "window"
+        },
+        "commandTool.autoRunTerminal": {
+          "type": "boolean",
+          "description": "是否自动运行脚本，默认自动运行",
+          "default": true,
+          "scope": "window"
+        },
+        "commandTool.TreeItemCollapsibleState": {
+          "type": "boolean",
+          "description": "是否折叠命令列表",
+          "default": false,
+          "scope": "window"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "push": "command-cli push"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mkdirp": "^1.0.2",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@types/rimraf": "^3.0.2",
+    "@types/sanitize-filename": "^1.6.3",
+    "@types/vscode": "^1.63.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "@vscode/test-electron": "^2.0.3",
+    "eslint": "^8.6.0",
+    "glob": "^7.2.0",
+    "mocha": "^9.1.3",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "rimraf": "^3.0.2",
+    "sanitize-filename": "^1.6.3"
+  }
 }

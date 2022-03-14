@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-03-13 11:04:47
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-13 11:38:27
+ * @LastEditTime: 2022-03-15 07:36:16
  */
 import * as vscode from 'vscode';
 import { MyTerminalOptions, ShellType } from '../type/common';
@@ -23,10 +23,10 @@ let terminalIndex: number;
 // 终端处理
 export async function dealTerminal(context: vscode.ExtensionContext, args: { title: string; shell: ShellType; [key: string]: any }) {
         console.log('SideBar-Command.openChild', args);
-        const { title, shell = null, path, projectName } = args;
+        const { label, shell = null, path, projectName } = args;
         const reg = new RegExp(PREFIX);
-        if (reg.test(title)) {
-            vscode.window.showErrorMessage(title);
+        if (reg.test(label)) {
+            vscode.window.showErrorMessage(label);
         } else {
             // 获取用户配置是否分割终端设置
             const splitTerminal = vscode.workspace.getConfiguration().get('commandTool.splitTerminal') || false;

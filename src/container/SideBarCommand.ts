@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:38:46
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-17 07:36:51
+ * @LastEditTime: 2022-03-15 07:48:01
  */
 import * as vscode from 'vscode';
 import { PREFIX } from '../constants';
@@ -38,10 +38,12 @@ export default class SideBarCommand extends SideBarEntryListImplements {
                     if (!!shellList.length) {
                         shellList.forEach((shell: ShellType, index: number) => {
                             const node = getNode(shell.key, {
-                                shell,
+                                title: shell,
                                 path: element.path,
                                 projectName: element.projectName,
-                                description: shell.value
+                                description: shell.value,
+                                shell,
+                                contextValue: 'child'
                             });
                             childElement[index] = node;
                         });
@@ -70,6 +72,8 @@ export default class SideBarCommand extends SideBarEntryListImplements {
                     folder.path,
                     folder.name,
                     '',
+                    '',
+                    'parent'
                 );
             }) || [];
             return folderNode;
@@ -85,11 +89,13 @@ function getNode(title: string, args?:{[key: string]: any}) {
         args?.path, // Todo
         args?.projectName,
         args?.description,
+        args?.shell,
+        args?.contextValue
     );
-    node.command = {
-        title,
-        command: 'SideBar-Command.openChild', // 命令id 要初始化时提前注册
-        arguments: [{title, ...args}]
-    };
+    // node.command = {
+    //     title,
+    //     command: 'SideBar-Command.openChild', // 命令id 要初始化时提前注册
+    //     arguments: [{title, ...args}]
+    // };
     return node;
 }

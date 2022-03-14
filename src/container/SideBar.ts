@@ -3,9 +3,10 @@
  * @author: steven.deng
  * @Date: 2022-01-31 18:07:56
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-21 07:27:53
+ * @LastEditTime: 2022-03-15 07:48:02
  */
 import * as vscode from 'vscode';
+import { ShellType } from '../type/common';
 
 // 侧边栏item父类
 class SideBarEntryItem extends vscode.TreeItem {
@@ -15,12 +16,17 @@ class SideBarEntryItem extends vscode.TreeItem {
         public readonly path?: string,
         public readonly projectName?: string,
         public readonly description?: string,
+        public readonly shell?: ShellType | string,
+        public readonly contextValue?: string,
+        
     ) {
         super(label, collapsibleState);
-        this.path = `${this.path}`;
-        this.tooltip = `tip: ${this.label}`;
-        this.projectName = `${this.projectName}`;
-        this.description = `${this.description || ''}`;
+        this.path = `${path}`;
+        this.tooltip = `tip: ${label}`;
+        this.projectName = `${projectName}`;
+        this.description = `${description || ''}`;
+        this.shell = shell;
+        this.contextValue = contextValue;
     }
 }
 

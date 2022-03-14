@@ -20,15 +20,11 @@
     "commands": [
       {
         "command": "commandTool.helloWorld",
-        "title": "Hello World",
-        "icon": {
-          "light": "resource/light/play_circle_filled-15px.svg",
-          "dark": "resource/dark/play_circle_filled-15px.svg"
-        }
+        "title": "Hello World"
       },
       {
-        "command": "commandTool.helloWorld",
-        "title": "He",
+        "command": "SideBar-Command.openChild",
+        "title": "Execute",
         "icon": {
           "light": "resources/light/play_circle_filled-15px.svg",
           "dark": "resources/dark/play_circle_filled-15px.svg"
@@ -134,10 +130,6 @@
     "menus": {
       "view/title": [
         {
-          "command": "commandTool.helloWorld",
-          "when": "view == SideBar-Command"
-        },
-        {
           "command": "WorkSpace-Command.add",
           "when": "view == WorkSpace-Command",
           "group": "navigation"
@@ -170,8 +162,8 @@
       ],
       "view/item/context": [
         {
-          "command": "commandTool.helloWorld",
-          "when": "view == SideBar-Command",
+          "command": "SideBar-Command.openChild",
+          "when": "view == SideBar-Command && viewItem == child",
           "group": "inline"
         },
         {

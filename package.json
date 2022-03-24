@@ -31,6 +31,10 @@
         }
       },
       {
+        "command": "SideBar-Command.copy",
+        "title": "Copy"
+      },
+      {
         "command": "WorkSpace-Command.openFile",
         "title": "Open File"
       },
@@ -103,6 +107,14 @@
         "title": "EditLabel"
       },
       {
+        "command": "WorkSpace-Command.copy",
+        "title": "Copy"
+      },
+      {
+        "command": "Global-Command.copy",
+        "title": "Copy"
+      },
+      {
         "command": "WorkSpace-Command.delete",
         "title": "Delete"
       },
@@ -167,6 +179,10 @@
           "group": "inline"
         },
         {
+          "command": "SideBar-Command.copy",
+          "when": "view == SideBar-Command && viewItem == child"
+        },
+        {
           "command": "workSpaceCommandExecuter.execute",
           "when": "view == WorkSpace-Command && viewItem == file",
           "group": "inline"
@@ -198,6 +214,14 @@
         },
         {
           "command": "Global-Command.editLabel",
+          "when": "view == Global-Command && viewItem == file"
+        },
+        {
+          "command": "Global-Command.copy",
+          "when": "view == WorkSpace-Command && viewItem == file"
+        },
+        {
+          "command": "Global-Command.copy",
           "when": "view == Global-Command && viewItem == file"
         }
       ]
@@ -271,7 +295,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "@types/mkdirp": "^1.0.2",
+    "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^9.0.0",
     "@types/node": "14.x",
     "@types/rimraf": "^3.0.2",

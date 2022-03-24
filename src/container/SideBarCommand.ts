@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:38:46
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-15 07:48:01
+ * @LastEditTime: 2022-03-16 07:29:19
  */
 import * as vscode from 'vscode';
 import { PREFIX } from '../constants';
@@ -30,9 +30,6 @@ export default class SideBarCommand extends SideBarEntryListImplements {
                 const packageValue = readFile(packJsonPath);
                 // 有script
                 if (packageValue?.scripts) {
-                    // 得到用户自定义配置的脚本命令规则
-                    // const scriptsRule: string = vscode.workspace.getConfiguration().get('vscode-commandTool-extension.scriptsRule') || '';
-                    // const scriptNames = scriptsRule.split('、');
                     let shellList: ShellType[] = [];
                     shellList = getShell(packageValue.scripts);
                     if (!!shellList.length) {
@@ -92,10 +89,5 @@ function getNode(title: string, args?:{[key: string]: any}) {
         args?.shell,
         args?.contextValue
     );
-    // node.command = {
-    //     title,
-    //     command: 'SideBar-Command.openChild', // 命令id 要初始化时提前注册
-    //     arguments: [{title, ...args}]
-    // };
     return node;
 }

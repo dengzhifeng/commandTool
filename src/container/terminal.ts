@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-03-13 11:04:47
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-15 07:36:16
+ * @LastEditTime: 2022-03-25 07:37:10
  */
 import * as vscode from 'vscode';
 import { MyTerminalOptions, ShellType } from '../type/common';
@@ -22,7 +22,6 @@ let terminalIndex: number;
 
 // 终端处理
 export async function dealTerminal(context: vscode.ExtensionContext, args: { title: string; shell: ShellType; [key: string]: any }) {
-        console.log('SideBar-Command.openChild', args);
         const { label, shell = null, path, projectName } = args;
         const reg = new RegExp(PREFIX);
         if (reg.test(label)) {
@@ -106,7 +105,7 @@ async function createNewSplitTerminal(terminalIndex: number, terminalOptions: My
  * @description 关闭终端执行
  * @param terminal: 当前关闭的终端
  *  */ 
- function onDidCloseTerminal(terminal: vscode.Terminal): void {
+function onDidCloseTerminal(terminal: vscode.Terminal): void {
     terminals.forEach((eachTerminal: StatusBarTerminal, index) => {
         // 找到当前终端的索引
         if (eachTerminal.hasTerminal(terminal)) {

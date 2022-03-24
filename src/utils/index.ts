@@ -3,13 +3,18 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:52:13
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-02-23 07:05:11
+ * @LastEditTime: 2022-03-25 07:39:00
  */
 import * as vscode from 'vscode';
 import { FolderType } from '../type/common';
 import * as os from 'os';
+import * as fs from 'fs';
+
+import * as cp from 'child_process';
+import { ExecException}  from 'child_process';
 export * from './package';
 export * from './file';
+
 /**
  * @description 因为 vscode 支持 Multi-root 工作区，暴力解决
  * @summary 如果发现只有一个根文件夹，读取其子文件夹作为 workspaceFolders
@@ -81,4 +86,33 @@ function objUniq(arr: any[], iteratee: string) {
     return result;
 }
 
-export { getWorkSpaceFolders, getPathHack, trim, uniqBy };
+// 拷贝文本
+function copyToClipboard(text: any, func: Function) {
+    if (isMacOS()) {
+        macCopy(text);
+        func();
+        return;
+    }
+    let resultfileName = "result.txt";
+    let command = `clip < ${resultfileName} `;
+    // 写入要粘贴的内容进result.txt
+    fs.writeFileSync(resultfileName, text, { encoding: "utf8" });
+    let cmdFileName = "copy.bat";
+    // 写入粘贴命令 clip < result.text 进copy.bat
+    fs.writeFileSync(cmdFileName, command, { encoding: "utf8" });
+    cp.exec(cmdFileName, {}, (error: ExecException | null, stdout: string, stderr: string) => {
+        if (error || stderr) {return console.log(error, stdout, stderr);}
+        // 用nodejs删除文件
+        fs.unlinkSync(cmdFileName);
+        fs.unlinkSync(resultfileName);
+        func(text, stdout);
+    });
+};
+
+function macCopy(data: any) {
+    const proc = cp.spawn("pbcopy");
+    proc.stdin.write(data);
+    proc.stdin.end();
+}
+
+export { getWorkSpaceFolders, getPathHack, trim, uniqBy, copyToClipboard };

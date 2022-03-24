@@ -3,17 +3,19 @@
  * @author: steven.deng
  * @Date: 2022-02-24 07:16:17
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-09 22:38:45
+ * @LastEditTime: 2022-03-25 07:29:08
  */
 
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as sanitizeFilename from 'sanitize-filename';
+// import * as sanitizeFilename from 'sanitize-filename';
 
 import { FileStat } from './FileStat';
-import { _ } from '../utils';
+import { _, copyToClipboard } from '../utils';
 import { Command, Entry } from '../type/common';
+
+const sanitizeFilename = require('sanitize-filename');
 
 export default class FileSystemProvider
     implements vscode.TreeDataProvider<Entry>, vscode.FileSystemProvider
@@ -118,7 +120,14 @@ export default class FileSystemProvider
             };
             await this._writeFile(element.uri.fsPath, this.stringToUnit8Array(JSON.stringify(command)), {create: true, overwrite: true});
         }
-
+    }
+    copyCommand(element?: Entry) {
+        if (element && element.type === vscode.FileType.File) { 
+            const file: Command = JSON.parse(fs.readFileSync(element.uri.fsPath, 'utf8'));
+            copyToClipboard(file.script, () => {
+                vscode.window.showInformationMessage(`已经复制命令${file.script}到剪切板`);
+            });
+        }
     }
     watch(
         uri: vscode.Uri,
@@ -128,7 +137,6 @@ export default class FileSystemProvider
             uri.fsPath,
             { recursive: options.recursive },
             async (event: string, filename: string | Buffer) => {
-                console.log('uri filename', uri, filename);
                 // 获取文件路径
                 const filePath = path.join(
                     uri.fsPath,

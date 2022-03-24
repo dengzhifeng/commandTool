@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 18:07:56
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-15 07:48:02
+ * @LastEditTime: 2022-03-16 07:25:02
  */
 import * as vscode from 'vscode';
 import { ShellType } from '../type/common';
@@ -26,6 +26,7 @@ class SideBarEntryItem extends vscode.TreeItem {
         this.projectName = `${projectName}`;
         this.description = `${description || ''}`;
         this.shell = shell;
+        // package.json的memu view/item/context  -> when条件判断用
         this.contextValue = contextValue;
     }
 }

@@ -1,5 +1,9 @@
 # Welcome to your VS Code Extension
 
+## 快速开发
+* 点击f5就可以进行调试了，会触发watch命令，监听修改并且编译项目
+* 项目主入口src/extension.ts
+
 ## What's in the folder
 
 * This folder contains all of the files necessary for your extension.

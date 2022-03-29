@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:38:29
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-25 07:36:22
+ * @LastEditTime: 2022-03-28 22:33:26
  */
 import * as vscode from 'vscode';
 import { ShellType } from '../type/common';
@@ -20,6 +20,7 @@ export default function(context: vscode.ExtensionContext) {
     
     // 自定义目录命令
     if (context.storageUri?.path) {
+        console.log(context.storageUri.path);
         new CommandExplorer('WorkSpace-Command', context.storageUri.path, context);
         new CommandExecuter('workSpaceCommandExecuter', context);
     }

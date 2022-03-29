@@ -1,10 +1,19 @@
 {
   "name": "commandTool",
   "displayName": "commandTool",
-  "description": "run command for project",
+  "description": "Save and display shell commands like File Explorer",
   "version": "0.0.1",
   "publisher": "stevendeng",
   "icon": "resources/extIcon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dengzhifeng/commandTool"
+  },
+  "homepage": "https://github.com/dengzhifeng/commandTool/blob/master/README.md",
+  "bugs": {
+    "url": "https://github.com/dengzhifeng/commandTool/issues",
+    "email": "398577351@qq.com"
+  },
   "engines": {
     "vscode": "^1.63.0"
   },
@@ -239,15 +248,15 @@
       "command-list-view": [
         {
           "id": "SideBar-Command",
-          "name": "项目命令集"
+          "name": "Project-Command(项目命令集)"
         },
         {
           "id": "WorkSpace-Command",
-          "name": "自定义命令集"
+          "name": "WorkSpace-Command(自定义命令集)"
         },
         {
           "id": "Global-Command",
-          "name": "全局命令集"
+          "name": "Global-Command(全局命令集)"
         }
       ]
     },

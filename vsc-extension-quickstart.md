@@ -4,6 +4,15 @@
 * 点击f5就可以进行调试了，会触发watch命令，监听修改并且编译项目
 * 项目主入口src/extension.ts
 
+## 快速部署
+根目录下运行：
+1. `vsce login stevendeng` 输入 Personal Access Token就行。
+Personal Access Token获取参考文章：
+https://code.visualstudio.com/api/working-with-extensions/publishing-extension
+
+2. `vsce publish 或者 npm run publish`
+
+
 ## What's in the folder
 
 * This folder contains all of the files necessary for your extension.

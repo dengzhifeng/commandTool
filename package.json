@@ -2,7 +2,7 @@
   "name": "commandTool",
   "displayName": "commandTool",
   "description": "Save and display shell commands like File Explorer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "stevendeng",
   "icon": "resources/extIcon.png",
   "repository": {

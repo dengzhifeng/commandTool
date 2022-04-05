@@ -43,7 +43,7 @@ settings.json配置示范：
   "commandTool.TreeItemCollapsibleState": false,
 ```
 
-## WorkSpace-Command(自定义命令集)
+## WorkSpace-Command(工作区命令集)
 自定义当前工作项目目录下的命令，新增的目录会保存在当前工作空间或者当前项目，可以增加一个通用命令，在任意项目运行，达到共享的效果。
 
 - 添加命令  

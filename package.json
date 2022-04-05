@@ -2,7 +2,7 @@
   "name": "commandTool",
   "displayName": "commandTool",
   "description": "Save and display shell commands like File Explorer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "stevendeng",
   "icon": "resources/extIcon.png",
   "repository": {
@@ -252,7 +252,7 @@
         },
         {
           "id": "WorkSpace-Command",
-          "name": "WorkSpace-Command(自定义命令集)"
+          "name": "WorkSpace-Command(工作区命令集)"
         },
         {
           "id": "Global-Command",

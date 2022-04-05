@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-02-24 07:16:17
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-25 07:29:08
+ * @LastEditTime: 2022-04-05 11:02:50
  */
 
 import * as vscode from 'vscode';
@@ -12,7 +12,7 @@ import * as path from 'path';
 // import * as sanitizeFilename from 'sanitize-filename';
 
 import { FileStat } from './FileStat';
-import { _, copyToClipboard } from '../utils';
+import { _, copyToClipboard, isWinOS } from '../utils';
 import { Command, Entry } from '../type/common';
 
 const sanitizeFilename = require('sanitize-filename');
@@ -58,7 +58,7 @@ export default class FileSystemProvider
             this._writeFile(filePath, this.stringToUnit8Array(JSON.stringify(command)), 
             {create: true, overwrite: true});
         } else {
-            this._writeFile(`${this.rootUri.fsPath}/${fileName}.json`, 
+            this._writeFile(`${this.rootUri.fsPath}/${sanitizedFilename}.json`, 
             this.stringToUnit8Array(JSON.stringify(command)), {create: true, overwrite: true});
         }
     }
@@ -192,6 +192,9 @@ export default class FileSystemProvider
         return Promise.resolve(result);
     }
     getFileName(path: string): string {
+        if(isWinOS()) {
+            return path.slice(path.lastIndexOf('\\') + 1);
+        }
         return path.slice(path.lastIndexOf('/') + 1);
     }
     delete(uri: vscode.Uri, options: { recursive: boolean }): Thenable<void> {

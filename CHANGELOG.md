@@ -11,3 +11,7 @@ All notable changes to the "commandTool" extension will be documented in this fi
 - README and English README
 - Icon
 - Add readme gif
+
+## [1.0.1] - 2022-04-05
+###  Fixed
+- Fix window error

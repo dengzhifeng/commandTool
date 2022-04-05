@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-01-31 17:52:13
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-03-25 07:39:00
+ * @LastEditTime: 2022-04-05 11:02:37
  */
 import * as vscode from 'vscode';
 import { FolderType } from '../type/common';
@@ -115,4 +115,4 @@ function macCopy(data: any) {
     proc.stdin.end();
 }
 
-export { getWorkSpaceFolders, getPathHack, trim, uniqBy, copyToClipboard };
+export { getWorkSpaceFolders, getPathHack, trim, uniqBy, copyToClipboard, isWinOS };

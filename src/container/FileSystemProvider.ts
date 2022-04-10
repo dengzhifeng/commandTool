@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-02-24 07:16:17
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-04-05 11:02:50
+ * @LastEditTime: 2022-04-08 14:26:56
  */
 
 import * as vscode from 'vscode';
@@ -53,7 +53,7 @@ export default class FileSystemProvider
         const sanitizedFilename = sanitizeFilename(<string>fileName).slice(0, 250);
         if (selected) {
             const filePath = selected.type === vscode.FileType.Directory ? 
-            `${selected.uri.fsPath}/${fileName}.json` :
+            `${selected.uri.fsPath}/${sanitizedFilename}.json` :
             `${this.getDirectoryPath(selected.uri.fsPath)}/${sanitizedFilename}.json`;
             this._writeFile(filePath, this.stringToUnit8Array(JSON.stringify(command)), 
             {create: true, overwrite: true});
@@ -66,13 +66,15 @@ export default class FileSystemProvider
         vscode.window.showInputBox({placeHolder: 'Enter a new group name'})
             .then(value => {
                 if (value !== null && value !== undefined) {
+                    const sanitizedFilename = sanitizeFilename(<string>value).slice(0, 250);
+
                     if (selected) {
                         const filePath = selected.type === vscode.FileType.Directory ? 
-                        `${selected.uri.fsPath}/${value}` : `${this.getDirectoryPath(selected.uri.fsPath)}/${value}}`;
+                        `${selected.uri.fsPath}/${sanitizedFilename}` : `${this.getDirectoryPath(selected.uri.fsPath)}/${sanitizedFilename}}`;
                         this.createDirectory(vscode.Uri.file(filePath));
                     } else {
                         // 根目录下创建
-                        this.createDirectory(vscode.Uri.file(`${this.rootUri.fsPath}/${value}`));
+                        this.createDirectory(vscode.Uri.file(`${this.rootUri.fsPath}/${sanitizedFilename}`));
                     }
                 }
             });
@@ -97,8 +99,10 @@ export default class FileSystemProvider
         } else if (element && element.type === vscode.FileType.Directory) {
             vscode.window.showInputBox({ placeHolder: 'Edit Folder name', value: this.getFileName(element.uri.fsPath) })
             .then(value => {
+                const sanitizedFilename = sanitizeFilename(<string>value).slice(0, 250);
+
                 if (value !== null && value !== undefined) {
-                    const newPath = vscode.Uri.file(`${this.getDirectoryPath(element.uri.fsPath)}/${value}`);
+                    const newPath = vscode.Uri.file(`${this.getDirectoryPath(element.uri.fsPath)}/${sanitizedFilename}`);
                     this.rename(element.uri, newPath, { overwrite: true});
                 }
             });
@@ -252,6 +256,9 @@ export default class FileSystemProvider
         
     } 
     getDirectoryPath(path: string): string {
+        if(isWinOS()) {
+            return path.slice(0, path.lastIndexOf('\\'));
+        }
         return path.slice(0, path.lastIndexOf('/'));
     }
     stringToUnit8Array(s: string): Uint8Array {

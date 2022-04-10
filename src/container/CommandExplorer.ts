@@ -3,7 +3,7 @@
  * @author: steven.deng
  * @Date: 2022-02-23 06:54:50
  * @LastEditors: steven.deng
- * @LastEditTime: 2022-04-05 14:00:48
+ * @LastEditTime: 2022-04-08 14:21:22
  */
 import * as vscode from 'vscode';
 import { Entry } from '../type/common';
@@ -28,7 +28,12 @@ export class CommandExplorer {
             context.subscriptions.push(vscode.commands.registerCommand(`${viewId}.sync`, () => treeDataProvider.refresh()));
             context.subscriptions.push(vscode.commands.registerCommand(`${viewId}.edit`, (element) => treeDataProvider.edit(element)));
             context.subscriptions.push(vscode.commands.registerCommand(`${viewId}.editLabel`, (element) => treeDataProvider.editLabel(element)));
-            context.subscriptions.push(vscode.commands.registerCommand(`${viewId}.delete`, (element) => treeDataProvider.delete(element.uri, {recursive: true})));
+            context.subscriptions.push(vscode.commands.registerCommand(`${viewId}.delete`, (element) => {
+                    treeDataProvider.delete(element.uri, {recursive: true});
+                    // 删除后就清楚选中 否则会新增文件夹时用回这个已经删除的目录去新增子目录
+                    this.selectedFile = undefined;
+                }
+            ));
             context.subscriptions.push(vscode.commands.registerCommand(`${viewId}.copy`, (element) => treeDataProvider.copyCommand(element)));
         });
     }

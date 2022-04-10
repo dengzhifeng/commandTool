@@ -2,7 +2,7 @@
   "name": "commandTool",
   "displayName": "commandTool",
   "description": "Save and display shell commands like File Explorer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "stevendeng",
   "icon": "resources/extIcon.png",
   "repository": {
@@ -108,6 +108,14 @@
         "title": "EditCommand"
       },
       {
+        "command": "WorkSpace-Command.editFolder",
+        "title": "EditFolder"
+      },
+      {
+        "command": "Global-Command.editFolder",
+        "title": "EditFolder"
+      },
+      {
         "command": "WorkSpace-Command.editLabel",
         "title": "EditLabel"
       },
@@ -211,7 +219,7 @@
         },
         {
           "command": "WorkSpace-Command.edit",
-          "when": "view == WorkSpace-Command"
+          "when": "view == WorkSpace-Command && viewItem == file "
         },
         {
           "command": "WorkSpace-Command.editLabel",
@@ -219,7 +227,15 @@
         },
         {
           "command": "Global-Command.edit",
-          "when": "view == Global-Command"
+          "when": "view == Global-Command && viewItem == file "
+        },
+        {
+          "command": "WorkSpace-Command.editFolder",
+          "when": "view == WorkSpace-Command && viewItem != file "
+        },
+        {
+          "command": "WorkSpace-Command.editFolder",
+          "when": "view == Global-Command && viewItem != file "
         },
         {
           "command": "Global-Command.editLabel",
